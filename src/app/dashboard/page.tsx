@@ -1,3 +1,4 @@
+
 import {
   Activity,
   AlertTriangle,
@@ -10,10 +11,12 @@ import { StatsCard } from '@/components/dashboard/stats-card';
 import { DelayPredictor } from '@/components/dashboard/delay-predictor';
 import { FlightActivityChart, DelayTrendsChart } from '@/components/dashboard/charts';
 import { MaintenanceAlerts } from '@/components/dashboard/maintenance-alerts';
+import { VoiceAlert } from '@/components/dashboard/voice-alert';
 
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-4 md:gap-8">
+       <VoiceAlert />
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <StatsCard
             title="On-Time Departures"
@@ -55,7 +58,7 @@ export default function DashboardPage() {
          <div className="lg:col-span-2">
            <DelayTrendsChart />
         </div>
-        <div className="lg:col-span-1">
+        <div className="lg-col-span-1">
            <MaintenanceAlerts />
         </div>
       </div>
