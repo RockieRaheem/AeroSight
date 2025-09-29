@@ -8,6 +8,7 @@ import {
   Droplets,
   Wrench,
   ChevronDown,
+  Video,
 } from 'lucide-react';
 
 import {
@@ -81,6 +82,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   <Link href="/dashboard/maintenance">
                     <Wrench />
                     <span>Maintenance</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+               <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/dashboard/flight-debrief">
+                    <Video />
+                    <span>Flight Debrief</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
