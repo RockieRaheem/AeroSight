@@ -9,6 +9,7 @@ import {
   Wrench,
   ChevronDown,
   Video,
+  Camera,
 } from 'lucide-react';
 
 import {
@@ -67,6 +68,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   <Link href="/dashboard/route-optimizer">
                     <Map />
                     <span>Route Optimizer</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+                <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/dashboard/damage-assessor">
+                    <Camera />
+                    <span>Damage Assessor</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
