@@ -13,9 +13,15 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
+const MaintenanceTaskSchema = z.object({
+  task: z.string().describe('The specific maintenance task to be performed.'),
+  interval: z.string().describe('The recommended interval for the task (e.g., "Every 100 flight hours").'),
+  reason: z.string().describe('The reason or justification for this maintenance task.'),
+});
+
 const ProvideMaintenanceSchedulesInputSchema = z.object({
   aircraftType: z.string().describe('The type of aircraft.'),
-  airlinePreferences: z.string().describe('The airline\u2019s specific maintenance preferences and priorities.'),
+  airlinePreferences: z.string().describe('The airline’s specific maintenance preferences and priorities.'),
   incomingAircraftData: z.string().describe('The stream of incoming aircraft systems and sensor data.'),
 });
 export type ProvideMaintenanceSchedulesInput = z.infer<
@@ -23,9 +29,7 @@ export type ProvideMaintenanceSchedulesInput = z.infer<
 >;
 
 const ProvideMaintenanceSchedulesOutputSchema = z.object({
-  maintenanceSchedule: z
-    .string()
-    .describe('The generated maintenance schedule.'),
+  maintenanceSchedule: z.array(MaintenanceTaskSchema).describe('A list of generated maintenance tasks.'),
 });
 export type ProvideMaintenanceSchedulesOutput = z.infer<
   typeof ProvideMaintenanceSchedulesOutputSchema
@@ -37,30 +41,17 @@ export async function provideMaintenanceSchedules(
   return provideMaintenanceSchedulesFlow(input);
 }
 
-const maintenanceSchedulerTool = ai.defineTool({
-  name: 'maintenanceScheduler',
-  description: 'Schedules aircraft maintenance based on aircraft data and airline preferences.',
-  inputSchema: ProvideMaintenanceSchedulesInputSchema,
-  outputSchema: ProvideMaintenanceSchedulesOutputSchema,
-},
-async (input) => {
-  return {
-    maintenanceSchedule: `Maintenance schedule generated for ${input.aircraftType} based on predictive algorithms and airline preferences.`
-  };
-});
-
 const prompt = ai.definePrompt({
   name: 'provideMaintenanceSchedulesPrompt',
-  tools: [maintenanceSchedulerTool],
   input: {schema: ProvideMaintenanceSchedulesInputSchema},
   output: {schema: ProvideMaintenanceSchedulesOutputSchema},
-  prompt: `You are a maintenance schedule generator. You have access to a tool that generates maintenance schedules.
+  prompt: `You are an expert aviation maintenance planner. Based on the aircraft type, its latest sensor data, and the airline's preferences, generate a detailed, predictive maintenance schedule.
 
-The current aircraft type is {{{aircraftType}}}.
-The airline preferences are {{{airlinePreferences}}}.
-The stream of incoming aircraft systems and sensor data is {{{incomingAircraftData}}}.
+For each maintenance task, provide the specific task, the recommended interval, and a clear reason for the recommendation.
 
-Generate a maintenance schedule using the maintenanceSchedulerTool.
+Aircraft Type: {{{aircraftType}}}
+Airline Preferences: {{{airlinePreferences}}}
+Incoming Sensor Data: {{{incomingAircraftData}}}
 `,
 });
 

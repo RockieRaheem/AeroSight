@@ -35,6 +35,14 @@ import { provideMaintenanceSchedules } from '@/ai/flows/provide-maintenance-sche
 import type { ProvideMaintenanceSchedulesOutput } from '@/ai/flows/provide-maintenance-schedules';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from '@/components/ui/table';
 
 const FormSchema = z.object({
   aircraftType: z.string().min(1, { message: 'Please select an aircraft type.' }),
@@ -76,8 +84,8 @@ export default function MaintenancePage() {
   }
 
   return (
-    <div className="grid gap-8 md:grid-cols-2">
-      <Card>
+    <div className="grid gap-8 lg:grid-cols-3">
+      <Card className="lg:col-span-1">
         <CardHeader>
           <CardTitle>Maintenance Scheduler</CardTitle>
           <CardDescription>
@@ -137,7 +145,7 @@ export default function MaintenancePage() {
         </Form>
       </Card>
 
-      <div>
+      <div className="lg:col-span-2">
         <Card className="h-full">
           <CardHeader>
             <CardTitle>Generated Schedule</CardTitle>
@@ -148,20 +156,36 @@ export default function MaintenancePage() {
           <CardContent>
             {isLoading && (
               <div className="space-y-4">
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-4/5" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
               </div>
             )}
             {!isLoading && !schedule && (
-              <div className="flex h-48 items-center justify-center">
-                <p className="text-muted-foreground">Schedule will be displayed here.</p>
+              <div className="flex h-64 items-center justify-center rounded-lg border border-dashed">
+                <p className="text-muted-foreground">Schedule details will be displayed here.</p>
               </div>
             )}
-            {schedule && (
-              <div className="prose prose-sm max-w-none text-foreground dark:prose-invert">
-                <p>{schedule.maintenanceSchedule}</p>
-              </div>
+            {schedule && schedule.maintenanceSchedule.length > 0 && (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-1/3">Task</TableHead>
+                    <TableHead className="w-1/4">Interval</TableHead>
+                    <TableHead>Reason</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {schedule.maintenanceSchedule.map((task, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{task.task}</TableCell>
+                      <TableCell>{task.interval}</TableCell>
+                      <TableCell className="text-muted-foreground">{task.reason}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             )}
           </CardContent>
         </Card>
