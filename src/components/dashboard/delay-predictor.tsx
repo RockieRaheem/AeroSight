@@ -68,7 +68,7 @@ export function DelayPredictor() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full h-full">
       <CardHeader>
         <CardTitle>Flight Delay Prediction</CardTitle>
         <CardDescription>
@@ -112,7 +112,7 @@ export function DelayPredictor() {
             {prediction && (
                 <div className="space-y-4">
                     <div className='flex items-baseline gap-2'>
-                        <h3 className="text-2xl font-bold text-accent">
+                        <h3 className="text-2xl font-bold text-primary">
                             {Math.round(prediction.delayProbability * 100)}%
                         </h3>
                         <p className="text-sm text-muted-foreground">chance of delay</p>

@@ -13,9 +13,8 @@ import { MaintenanceAlerts } from '@/components/dashboard/maintenance-alerts';
 
 export default function DashboardPage() {
   return (
-    <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-      <div className="grid gap-4 md:gap-8 lg:col-span-2 xl:col-span-3">
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+    <div className="flex flex-col gap-4 md:gap-8">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <StatsCard
             title="On-Time Departures"
             value="98.2%"
@@ -42,17 +41,22 @@ export default function DashboardPage() {
             changeType="negative"
           />
         </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
+        <div className="lg:col-span-2">
+            <FlightActivityChart />
+        </div>
+        <div className="lg:col-span-1">
+            <DelayPredictor />
+        </div>
       </div>
 
-      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-1 xl:col-span-1">
-        <DelayPredictor />
-      </div>
-
-      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-1 xl:col-span-2">
-        <FlightActivityChart />
-        <div className="grid gap-4 sm:grid-cols-2">
-            <DelayTrendsChart />
-            <MaintenanceAlerts />
+       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
+         <div className="lg:col-span-2">
+           <DelayTrendsChart />
+        </div>
+        <div className="lg:col-span-1">
+           <MaintenanceAlerts />
         </div>
       </div>
     </div>
