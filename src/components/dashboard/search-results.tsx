@@ -10,6 +10,7 @@ import {
   Droplets,
   Loader2,
   SearchX,
+  Bot,
 } from 'lucide-react';
 import { searchAeroSight } from '@/ai/flows/search-aero-sight';
 import type { SearchAeroSightOutput } from '@/ai/flows/search-aero-sight';
@@ -23,11 +24,14 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 
 const iconMap: { [key: string]: React.ElementType } = {
   'Flight Route': Map,
   'Maintenance Task': Wrench,
   'Fuel Cost Record': Droplets,
+  'Flight Delay': Droplets,
+  Summary: Bot,
   default: FileText,
 };
 
@@ -87,41 +91,54 @@ export default function SearchResults() {
 
       {isLoading && (
         <div className="space-y-4">
-          <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-16 w-full" />
           <Skeleton className="h-24 w-full" />
           <Skeleton className="h-24 w-full" />
         </div>
       )}
 
-      {!isLoading && results?.results && results.results.length > 0 && (
-        <div className="space-y-4">
-          {results.results.map((item, index) => {
-            const Icon = iconMap[item.type] || iconMap.default;
-            return (
-              <Card key={index} className="hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <Icon className="h-6 w-6 text-muted-foreground" />
-                      <div className="space-y-1">
-                        <CardTitle className="text-lg">
-                          <Link href={item.link} className="hover:underline">
-                            {item.title}
-                          </Link>
-                        </CardTitle>
-                        <CardDescription>{item.summary}</CardDescription>
+      {!isLoading && results && (
+        <>
+           <Alert>
+              <Bot className="h-4 w-4" />
+              <AlertTitle>AI Summary</AlertTitle>
+              <AlertDescription>
+                {results.summary}
+              </AlertDescription>
+            </Alert>
+
+          {results.results && results.results.length > 0 && (
+            <div className="space-y-4">
+               <h2 className="text-xl font-semibold tracking-tight">Supporting Data</h2>
+              {results.results.map((item, index) => {
+                const Icon = iconMap[item.type] || iconMap.default;
+                return (
+                  <Card key={index} className="hover:shadow-md transition-shadow">
+                    <CardHeader>
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                          <Icon className="h-6 w-6 text-muted-foreground" />
+                          <div className="space-y-1">
+                            <CardTitle className="text-lg">
+                              <Link href={item.link || '#'} className="hover:underline">
+                                {item.title}
+                              </Link>
+                            </CardTitle>
+                            <CardDescription>{item.summary}</CardDescription>
+                          </div>
+                        </div>
+                        <Badge variant="outline">{item.type}</Badge>
                       </div>
-                    </div>
-                    <Badge variant="outline">{item.type}</Badge>
-                  </div>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
+                    </CardHeader>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </>
       )}
       
-      {!isLoading && (!results || results.results.length === 0) && (
+      {!isLoading && !results && (
         <div className="flex flex-col items-center justify-center text-center py-16">
             <SearchX className="h-16 w-16 text-muted-foreground" />
             <h2 className="mt-4 text-xl font-semibold">No Results Found</h2>
