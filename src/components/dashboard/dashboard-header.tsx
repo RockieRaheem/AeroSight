@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bell, Home, PanelLeft, Search } from "lucide-react";
+import React from 'react';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -89,12 +90,3 @@ export function DashboardHeader() {
     </header>
   );
 }
-
-// Minimal Breadcrumb component for use in this header
-const React = require("react");
-const Breadcrumb = (props: any) => <nav aria-label="breadcrumb" {...props} />;
-const BreadcrumbList = React.forwardRef((props: any, ref: any) => <ol ref={ref} className="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5" {...props} />);
-const BreadcrumbItem = React.forwardRef((props: any, ref: any) => <li ref={ref} className="inline-flex items-center gap-1.5" {...props} />);
-const BreadcrumbLink = React.forwardRef(({ asChild, ...props }: any, ref: any) => <a ref={ref} className="transition-colors hover:text-foreground" {...props} />);
-const BreadcrumbPage = React.forwardRef((props: any, ref: any) => <span ref={ref} role="link" aria-disabled="true" aria-current="page" className="font-normal text-foreground" {...props} />);
-const BreadcrumbSeparator = (props: any) => <li role="presentation" aria-hidden="true" {...props}><svg width="1em" height="1em" viewBox="0 0 24 24"><path d="m9 18l6-6l-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path></svg></li>;
