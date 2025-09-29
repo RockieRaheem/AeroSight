@@ -11,6 +11,7 @@ import {
   Loader2,
   SearchX,
   Bot,
+  AlertTriangle,
 } from 'lucide-react';
 import { searchAeroSight } from '@/ai/flows/search-aero-sight';
 import type { SearchAeroSightOutput } from '@/ai/flows/search-aero-sight';
@@ -30,7 +31,7 @@ const iconMap: { [key: string]: React.ElementType } = {
   'Flight Route': Map,
   'Maintenance Task': Wrench,
   'Fuel Cost Record': Droplets,
-  'Flight Delay': Droplets,
+  'Flight Delay': AlertTriangle,
   Summary: Bot,
   default: FileText,
 };
@@ -91,9 +92,19 @@ export default function SearchResults() {
 
       {isLoading && (
         <div className="space-y-4">
-          <Skeleton className="h-16 w-full" />
-          <Skeleton className="h-24 w-full" />
-          <Skeleton className="h-24 w-full" />
+          <Alert>
+            <Bot className="h-4 w-4" />
+            <AlertTitle>AI Summary</AlertTitle>
+            <AlertDescription>
+              <Skeleton className="h-4 w-3/4 mb-2" />
+              <Skeleton className="h-4 w-1/2" />
+            </AlertDescription>
+          </Alert>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold tracking-tight">Supporting Data</h2>
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
+          </div>
         </div>
       )}
 
@@ -138,7 +149,7 @@ export default function SearchResults() {
         </>
       )}
       
-      {!isLoading && !results && (
+      {!isLoading && (!results || results.results.length === 0) && (
         <div className="flex flex-col items-center justify-center text-center py-16">
             <SearchX className="h-16 w-16 text-muted-foreground" />
             <h2 className="mt-4 text-xl font-semibold">No Results Found</h2>

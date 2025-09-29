@@ -12,7 +12,7 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const SearchResultItemSchema = z.object({
-  type: z.string().describe('The type of the result, e.g., "Flight Route", "Maintenance Task", "Fuel Cost Record", "Flight Delay", "Summary"'),
+  type: z.string().describe('The type of the result, e.g., "Flight Route", "Maintenance Task", "Fuel Cost Record", "Flight Delay"'),
   title: z.string().describe('A descriptive title for the search result item.'),
   summary: z.string().describe('A brief summary of the search result item.'),
   link: z.string().describe('A URL link to the relevant page within the application, if applicable.'),
@@ -51,7 +51,7 @@ You have access to the following data domains:
 
 **Instructions:**
 1.  **Synthesize a Summary:** First, create a conversational summary that directly answers the user's query. This should be your primary output.
-2.  **Provide Structured Results:** Then, provide a list of structured data items that support your summary. For each item, specify its type, title, a brief summary, and a relevant link to a page in the application.
+2.  **Provide Structured Results:** Then, provide a list of structured data items that support your summary. For each item, specify its type, title, a brief summary, and a relevant link to a page in the application. If no specific data is relevant, you can return an empty array for the results.
 3.  **Simulate Realistic Data:** Generate realistic but simulated data for your answers.
 
 **Available Application Pages:**
