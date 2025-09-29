@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen w-full">
+      <div className="grid grid-cols-[auto_1fr] min-h-screen w-full">
         <Sidebar>
           <SidebarHeader>
             <div className="flex items-center gap-2">
@@ -117,10 +117,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             </DropdownMenu>
           </SidebarFooter>
         </Sidebar>
-        <SidebarInset>
+        <div className="flex flex-col">
             <DashboardHeader />
             <main className="flex-1 p-4 sm:p-6">{children}</main>
-        </SidebarInset>
+        </div>
       </div>
     </SidebarProvider>
   );
