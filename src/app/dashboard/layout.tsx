@@ -35,6 +35,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { AeroSightLogo } from '@/components/aerosight-logo';
 import { DashboardHeader } from '@/components/dashboard/dashboard-header';
+import { ThemeToggle } from '@/components/dashboard/theme-toggle';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const userAvatar = PlaceHolderImages.find((p) => p.id === 'user-avatar');
