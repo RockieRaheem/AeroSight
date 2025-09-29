@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "login-background",
+      "description": "An airplane wing viewed from a window, conveying the aviation theme.",
+      "imageUrl": "https://images.unsplash.com/photo-1529322365446-6efd62aed02e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhaXJwbGFuZSUyMHdpbmd8ZW58MHx8fHwxNzU5MDc1NTYxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "airplane wing"
+    },
+    {
+      "id": "user-avatar",
+      "description": "A placeholder for a user's avatar image.",
+      "imageUrl": "https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTkxMDU0Nzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
 }
