@@ -7,5 +7,4 @@ import '@/ai/flows/provide-maintenance-schedules.ts';
 import '@/ai/flows/predict-flight-delays.ts';
 import '@/ai/flows/search-aero-sight.ts';
 import '@/ai/flows/generate-flight-debrief.ts';
-import '@/ai/flows/text-to-speech.ts';
 import '@/ai/flows/assess-damage.ts';
