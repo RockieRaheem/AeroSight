@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 
 interface StatsCardProps {
   title: string;
@@ -15,8 +16,9 @@ export function StatsCard({
   value,
   icon: Icon,
   change,
-  changeType = 'positive',
+  changeType = 'neutral',
 }: StatsCardProps) {
+  const ChangeIcon = changeType === 'positive' ? ArrowUp : ArrowDown;
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -28,11 +30,12 @@ export function StatsCard({
         {change && (
           <p
             className={cn(
-              'text-xs text-muted-foreground',
+              'text-xs text-muted-foreground flex items-center gap-1',
               changeType === 'positive' && 'text-emerald-500',
               changeType === 'negative' && 'text-red-500'
             )}
           >
+            {changeType !== 'neutral' && <ChangeIcon className='h-3 w-3' />}
             {change}
           </p>
         )}

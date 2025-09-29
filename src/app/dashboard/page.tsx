@@ -15,12 +15,18 @@ import { MaintenanceAlerts } from '@/components/dashboard/maintenance-alerts';
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-4 md:gap-8">
+       <div className="mb-4">
+        <h1 className="text-3xl font-bold tracking-tight">Welcome to AeroSight</h1>
+        <p className="text-muted-foreground">Your central hub for intelligent aviation operations.</p>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <StatsCard
             title="On-Time Departures"
             value="98.2%"
             icon={CheckCircle}
             change="+2.5% from last month"
+            changeType='positive'
           />
           <StatsCard
             title="Average Delay"
@@ -34,6 +40,7 @@ export default function DashboardPage() {
             value="$125,430"
             icon={DollarSign}
             change="+15% from last month"
+            changeType='positive'
           />
           <StatsCard
             title="Active Alerts"
@@ -56,7 +63,7 @@ export default function DashboardPage() {
          <div className="lg:col-span-2">
            <DelayTrendsChart />
         </div>
-        <div className="lg-col-span-1">
+        <div className="lg:col-span-1">
            <MaintenanceAlerts />
         </div>
       </div>
