@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Home, PanelLeft, Search } from "lucide-react";
+import { Home, PanelLeft, Search } from "lucide-react";
 import React from 'react';
 import {
   Breadcrumb,
@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AeroSightLogo } from "../aerosight-logo";
+import { ThemeToggle } from "./theme-toggle";
 
 export function DashboardHeader() {
   const pathname = usePathname();
@@ -30,7 +31,7 @@ export function DashboardHeader() {
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="sm:max-w-xs bg-sidebar text-sidebar-foreground border-none p-0">
+        <SheetContent side="left" className="sm:max-w-xs bg-card text-card-foreground border-none p-0">
           <nav className="grid gap-6 text-lg font-medium p-6">
             <Link
               href="/dashboard"
@@ -83,10 +84,7 @@ export function DashboardHeader() {
           className="w-full rounded-lg bg-secondary pl-8 md:w-[200px] lg:w-[320px]"
         />
       </div>
-       <Button variant="outline" size="icon" className="h-8 w-8">
-            <Bell className="h-4 w-4" />
-            <span className="sr-only">Toggle notifications</span>
-       </Button>
+       <ThemeToggle />
     </header>
   );
 }
