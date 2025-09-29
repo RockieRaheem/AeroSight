@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Droplets, DollarSign } from 'lucide-react';
+import { Droplets, DollarSign, Lightbulb, Activity } from 'lucide-react';
 
 import {
   Card,
@@ -29,6 +29,7 @@ import type { CalculateFuelCostOutput } from '@/ai/flows/calculate-fuel-cost';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
+import { Separator } from '@/components/ui/separator';
 
 const FormSchema = z.object({
   route: z.string().min(5, { message: 'Route must be descriptive.' }),
@@ -71,8 +72,8 @@ export default function FuelCostPage() {
   }
 
   return (
-    <div className="grid gap-8 md:grid-cols-2">
-      <Card>
+    <div className="grid gap-8 md:grid-cols-3">
+      <Card className="md:col-span-1">
         <CardHeader>
           <CardTitle>Fuel Cost Calculator</CardTitle>
           <CardDescription>
@@ -146,41 +147,75 @@ export default function FuelCostPage() {
         </Form>
       </Card>
       
-      <div>
+      <div className="md:col-span-2">
         <Card className="h-full">
           <CardHeader>
-            <CardTitle>Estimated Costs</CardTitle>
-            <CardDescription>Breakdown of estimated fuel burn and total cost.</CardDescription>
+            <CardTitle>Cost & Consumption Analysis</CardTitle>
+            <CardDescription>Breakdown of estimated fuel burn, cost, and optimization insights.</CardDescription>
           </CardHeader>
-          <CardContent className="flex items-center justify-center h-full">
+          <CardContent className="flex flex-col justify-center h-full">
             {isLoading && (
-              <div className="space-y-6 text-center">
-                <Skeleton className="h-10 w-48 mx-auto" />
-                <Skeleton className="h-10 w-48 mx-auto" />
+              <div className="space-y-6">
+                <div className="flex justify-around">
+                  <Skeleton className="h-12 w-48" />
+                  <Skeleton className="h-12 w-48" />
+                </div>
+                <Separator />
+                <div className="space-y-4 px-6">
+                    <Skeleton className="h-6 w-1/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+                </div>
+                 <div className="space-y-4 px-6">
+                    <Skeleton className="h-6 w-1/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+                </div>
               </div>
             )}
             {!isLoading && !calculation && (
-                <p className="text-muted-foreground">Results will be displayed here.</p>
+                <p className="text-center text-muted-foreground">Results will be displayed here.</p>
             )}
             {calculation && (
-              <div className="space-y-8 text-center">
-                <div>
-                  <h3 className="flex items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
-                    <Droplets className="h-4 w-4"/> Estimated Fuel Burn
-                  </h3>
-                  <p className="text-4xl font-bold tracking-tight">
-                    {calculation.estimatedFuelBurn.toLocaleString()}
-                    <span className="text-xl text-muted-foreground font-medium ml-2">gal</span>
-                  </p>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
+                    <div>
+                      <h3 className="flex items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
+                        <Droplets className="h-4 w-4"/> Estimated Fuel Burn
+                      </h3>
+                      <p className="text-4xl font-bold tracking-tight">
+                        {calculation.estimatedFuelBurn.toLocaleString()}
+                        <span className="text-xl text-muted-foreground font-medium ml-2">gal</span>
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="flex items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
+                        <DollarSign className="h-4 w-4"/> Estimated Total Cost
+                      </h3>
+                      <p className="text-4xl font-bold tracking-tight text-primary">
+                        ${calculation.estimatedCost.toLocaleString()}
+                        <span className="text-xl text-muted-foreground font-medium ml-2">USD</span>
+                      </p>
+                    </div>
                 </div>
-                <div>
-                  <h3 className="flex items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
-                    <DollarSign className="h-4 w-4"/> Estimated Total Cost
-                  </h3>
-                  <p className="text-4xl font-bold tracking-tight text-primary">
-                    ${calculation.estimatedCost.toLocaleString()}
-                    <span className="text-xl text-muted-foreground font-medium ml-2">USD</span>
-                  </p>
+                
+                <Separator />
+
+                <div className="space-y-4 px-2 sm:px-6">
+                    <div>
+                        <h3 className="flex items-center gap-2 font-semibold">
+                            <Activity className="h-5 w-5 text-primary" />
+                            Analysis
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-2">{calculation.analysis}</p>
+                    </div>
+                     <div>
+                        <h3 className="flex items-center gap-2 font-semibold">
+                            <Lightbulb className="h-5 w-5 text-primary" />
+                            Recommendations
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-2">{calculation.recommendations}</p>
+                    </div>
                 </div>
               </div>
             )}

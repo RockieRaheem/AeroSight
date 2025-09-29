@@ -29,6 +29,8 @@ const CalculateFuelCostOutputSchema = z.object({
     .describe('The estimated fuel burn in US gallons.'),
   estimatedCost: z.number().describe('The estimated fuel cost in USD.'),
   route: z.string().describe('The flight route (e.g., EBB to JFK).'),
+  analysis: z.string().describe('A brief analysis of the fuel cost calculation, including factors that influenced the result.'),
+    recommendations: z.string().describe('Suggestions for optimizing fuel consumption for this flight leg.'),
 });
 export type CalculateFuelCostOutput = z.infer<typeof CalculateFuelCostOutputSchema>;
 
@@ -49,7 +51,7 @@ Aircraft Type: {{{aircraftType}}}
 Current Fuel Price (USD per gallon): {{{currentFuelPrice}}}
 Atmospheric Conditions: {{{atmosphericConditions}}}
 
-Provide the estimated fuel burn in US gallons and the estimated fuel cost in USD.
+In addition to the fuel burn and cost, provide a brief analysis of the factors influencing the calculation (e.g., how wind affects consumption) and offer specific, actionable recommendations for optimizing fuel usage on this route.
 `,
 });
 
