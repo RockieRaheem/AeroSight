@@ -44,8 +44,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <Sidebar>
           <SidebarHeader>
             <div className="flex items-center gap-2">
-              <AeroSightLogo className="w-8 h-8 text-primary-foreground" />
-              <h2 className="text-lg font-semibold text-primary-foreground tracking-tight">
+              <AeroSightLogo className="w-8 h-8 text-primary" />
+              <h2 className="text-lg font-semibold text-foreground tracking-tight">
                 AeroSight
               </h2>
             </div>
@@ -89,7 +89,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <SidebarFooter>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="w-full justify-start gap-2 px-2 h-auto text-left text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+                <Button variant="ghost" className="w-full justify-start gap-2 px-2 h-auto text-left text-sidebar-foreground hover:bg-muted/80 hover:text-foreground">
                   <Avatar className="h-8 w-8">
                     {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
                     <AvatarFallback>JD</AvatarFallback>
@@ -119,7 +119,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </Sidebar>
         <div className="flex flex-col">
             <DashboardHeader />
-            <main className="flex-1 p-4 sm:p-6">{children}</main>
+            <main className="flex-1 p-4 sm:p-6 bg-muted/30">{children}</main>
         </div>
       </div>
     </SidebarProvider>
