@@ -1,3 +1,4 @@
+// AeroSight Next.js configuration with optimizations for aviation dashboard
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {

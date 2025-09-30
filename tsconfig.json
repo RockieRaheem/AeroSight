@@ -1,4 +1,5 @@
 {
+  "_comment": "AeroSight TypeScript configuration for Next.js with strict type checking",
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],

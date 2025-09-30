@@ -1,5 +1,5 @@
 # AeroSight ✈️
-
+<!-- Comprehensive aviation operations platform with AI-powered features -->
 **Intelligent Aviation Operations Dashboard for Entebbe Airport**
 
 AeroSight is a modern, AI-powered aviation management platform designed to optimize flight operations, predict delays, manage fuel costs, and streamline maintenance scheduling for airlines and airport authorities.

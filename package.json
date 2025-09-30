@@ -1,4 +1,5 @@
 {
+  "_comment": "AeroSight Aviation Dashboard - Dependencies and scripts configuration",
   "name": "nextn",
   "version": "0.1.0",
   "private": true,

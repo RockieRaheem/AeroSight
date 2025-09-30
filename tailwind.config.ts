@@ -1,3 +1,4 @@
+// AeroSight Tailwind CSS configuration for aviation-themed styling
 import type {Config} from 'tailwindcss';
 
 export default {
