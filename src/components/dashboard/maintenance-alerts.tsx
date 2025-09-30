@@ -1,49 +1,49 @@
-import { Wrench, Plane } from 'lucide-react';
+import { Wrench, Plane } from "lucide-react";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const alerts = [
   {
     id: 1,
-    flight: 'UR522', // Uganda Airlines
-    airline: 'Uganda Airlines',
-    model: 'Bombardier CRJ900',
-    reason: 'Engine pressure anomaly detected',
+    flight: "UR522", // Uganda Airlines
+    airline: "Uganda Airlines",
+    model: "Bombardier CRJ900",
+    reason: "Engine pressure anomaly detected",
   },
   {
     id: 2,
-    flight: 'ET714', // Ethiopian Airlines
-    airline: 'Ethiopian Airlines',
-    model: 'Boeing 787',
-    reason: 'Landing gear sensor fault',
+    flight: "ET714", // Ethiopian Airlines
+    airline: "Ethiopian Airlines",
+    model: "Boeing 787",
+    reason: "Landing gear sensor fault",
   },
   {
     id: 3,
-    flight: 'KQ414', // Kenya Airways
-    airline: 'Kenya Airways',
-    model: 'Boeing 737',
-    reason: 'Hydraulic fluid levels low',
+    flight: "KQ414", // Kenya Airways
+    airline: "Kenya Airways",
+    model: "Boeing 737",
+    reason: "Hydraulic fluid levels low",
   },
   {
     id: 4,
-    flight: 'WB205', // RwandAir
-    airline: 'RwandAir',
-    model: 'Airbus A330',
-    reason: 'Avionics system update required',
+    flight: "WB205", // RwandAir
+    airline: "RwandAir",
+    model: "Airbus A330",
+    reason: "Avionics system update required",
   },
   {
     id: 5,
-    flight: 'EK728', // Emirates
-    airline: 'Emirates',
-    model: 'Boeing 777',
-    reason: 'Tire pressure warning',
+    flight: "EK728", // Emirates
+    airline: "Emirates",
+    model: "Boeing 777",
+    reason: "Tire pressure warning",
   },
 ];
 
@@ -67,7 +67,10 @@ export function MaintenanceAlerts() {
             </div>
             <div className="grid gap-1 flex-1">
               <p className="text-sm font-medium leading-none">
-                {alert.flight} ({alert.model})
+                {alert.flight} - {alert.airline}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {alert.model}
               </p>
               <p className="text-sm text-muted-foreground">{alert.reason}</p>
             </div>
@@ -75,7 +78,7 @@ export function MaintenanceAlerts() {
         ))}
       </CardContent>
       <CardContent>
-         <Button asChild size="sm" className="w-full">
+        <Button asChild size="sm" className="w-full">
           <Link href="/dashboard/maintenance">
             <Wrench className="mr-2 h-4 w-4" />
             View All Schedules

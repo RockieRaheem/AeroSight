@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import type { ReactNode } from 'react';
-import Link from 'next/link';
-import { ProtectedRoute } from '@/components/protected-route';
-import { LogoutButton } from '@/components/logout-button';
-import { useAuth } from '@/lib/auth';
+import type { ReactNode } from "react";
+import Link from "next/link";
+import { ProtectedRoute } from "@/components/protected-route";
+import { LogoutButton } from "@/components/logout-button";
+import { useAuth } from "@/lib/auth";
 import {
   Bell,
   Home,
@@ -17,7 +17,7 @@ import {
   Camera,
   User,
   Settings,
-} from 'lucide-react';
+} from "lucide-react";
 
 import {
   SidebarProvider,
@@ -29,8 +29,8 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarInset,
-} from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,27 +38,27 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { AeroSightLogo } from '@/components/aerosight-logo';
-import { DashboardHeader } from '@/components/dashboard/dashboard-header';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { AeroSightLogo } from "@/components/aerosight-logo";
+import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const userAvatar = PlaceHolderImages.find((p) => p.id === "user-avatar");
-  
+
   // Get user display name and email from Firebase Auth
-  const displayName = user?.displayName || user?.email?.split('@')[0] || 'User';
-  const userEmail = user?.email || '';
+  const displayName = user?.displayName || user?.email?.split("@")[0] || "User";
+  const userEmail = user?.email || "";
   const photoURL = user?.photoURL;
-  
+
   // Generate initials from display name
   const getInitials = (name: string) => {
     return name
-      .split(' ')
-      .map(n => n[0])
-      .join('')
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
       .toUpperCase()
       .slice(0, 2);
   };
@@ -137,17 +137,16 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   >
                     <Avatar className="h-8 w-8">
                       {photoURL ? (
-                        <AvatarImage
-                          src={photoURL}
-                          alt={displayName}
-                        />
+                        <AvatarImage src={photoURL} alt={displayName} />
                       ) : userAvatar ? (
                         <AvatarImage
                           src={userAvatar.imageUrl}
                           alt="User Avatar"
                         />
                       ) : null}
-                      <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
+                      <AvatarFallback>
+                        {getInitials(displayName)}
+                      </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 truncate">
                       <p className="font-semibold text-sm">{displayName}</p>

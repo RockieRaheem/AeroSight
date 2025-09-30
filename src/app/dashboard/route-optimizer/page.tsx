@@ -51,8 +51,8 @@ export default function RouteOptimizerPage() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       origin: 'EBB',
-      destination: 'JFK',
-      aircraftType: 'Boeing 787',
+      destination: 'ADD',
+      aircraftType: 'Boeing 787-9',
     },
   });
 
@@ -95,10 +95,25 @@ export default function RouteOptimizerPage() {
                   name="origin"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Origin</FormLabel>
-                      <FormControl>
-                        <Input placeholder="EBB" {...field} />
-                      </FormControl>
+                      <FormLabel>Origin Airport</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select origin" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="EBB">EBB - Entebbe (Kampala)</SelectItem>
+                          <SelectItem value="ADD">ADD - Addis Ababa</SelectItem>
+                          <SelectItem value="NBO">NBO - Nairobi</SelectItem>
+                          <SelectItem value="KGL">KGL - Kigali</SelectItem>
+                          <SelectItem value="DAR">DAR - Dar es Salaam</SelectItem>
+                          <SelectItem value="JRO">JRO - Kilimanjaro</SelectItem>
+                          <SelectItem value="DXB">DXB - Dubai</SelectItem>
+                          <SelectItem value="DOH">DOH - Doha</SelectItem>
+                          <SelectItem value="IST">IST - Istanbul</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -108,10 +123,28 @@ export default function RouteOptimizerPage() {
                   name="destination"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Destination</FormLabel>
-                      <FormControl>
-                        <Input placeholder="JFK" {...field} />
-                      </FormControl>
+                      <FormLabel>Destination Airport</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select destination" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="ADD">ADD - Addis Ababa</SelectItem>
+                          <SelectItem value="NBO">NBO - Nairobi</SelectItem>
+                          <SelectItem value="KGL">KGL - Kigali</SelectItem>
+                          <SelectItem value="DAR">DAR - Dar es Salaam</SelectItem>
+                          <SelectItem value="JRO">JRO - Kilimanjaro</SelectItem>
+                          <SelectItem value="DXB">DXB - Dubai</SelectItem>
+                          <SelectItem value="DOH">DOH - Doha</SelectItem>
+                          <SelectItem value="IST">IST - Istanbul</SelectItem>
+                          <SelectItem value="LHR">LHR - London Heathrow</SelectItem>
+                          <SelectItem value="AMS">AMS - Amsterdam</SelectItem>
+                          <SelectItem value="BRU">BRU - Brussels</SelectItem>
+                          <SelectItem value="JFK">JFK - New York JFK</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -130,10 +163,18 @@ export default function RouteOptimizerPage() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Boeing 787">Boeing 787</SelectItem>
-                        <SelectItem value="Airbus A350">Airbus A350</SelectItem>
-                        <SelectItem value="Boeing 737">Boeing 737</SelectItem>
-                        <SelectItem value="Airbus A320">Airbus A320</SelectItem>
+                        <SelectItem value="Boeing 787-9">Boeing 787-9</SelectItem>
+                        <SelectItem value="Boeing 787-8">Boeing 787-8</SelectItem>
+                        <SelectItem value="Boeing 777-300ER">Boeing 777-300ER</SelectItem>
+                        <SelectItem value="Airbus A350-900">Airbus A350-900</SelectItem>
+                        <SelectItem value="Airbus A330-300">Airbus A330-300</SelectItem>
+                        <SelectItem value="Boeing 737-800">Boeing 737-800</SelectItem>
+                        <SelectItem value="Boeing 737 MAX 8">Boeing 737 MAX 8</SelectItem>
+                        <SelectItem value="Airbus A320neo">Airbus A320neo</SelectItem>
+                        <SelectItem value="Airbus A220">Airbus A220</SelectItem>
+                        <SelectItem value="Bombardier CRJ900">Bombardier CRJ900</SelectItem>
+                        <SelectItem value="Embraer E190">Embraer E190</SelectItem>
+                        <SelectItem value="ATR 72">ATR 72</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

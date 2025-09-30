@@ -24,6 +24,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { calculateFuelCost } from '@/ai/flows/calculate-fuel-cost';
 import type { CalculateFuelCostOutput } from '@/ai/flows/calculate-fuel-cost';
 import { useToast } from '@/hooks/use-toast';
@@ -46,10 +53,10 @@ export default function FuelCostPage() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      route: 'EBB to JFK',
-      aircraftType: 'Boeing 787',
+      route: 'EBB to ADD', // Kampala to Addis Ababa - common route
+      aircraftType: 'Boeing 787-9',
       currentFuelPrice: 3.50,
-      atmosphericConditions: 'Standard day, 15kt headwind at cruise altitude.',
+      atmosphericConditions: 'East African conditions: Standard day, 10kt tailwind, typical seasonal weather patterns.',
     },
   });
 
@@ -103,9 +110,27 @@ export default function FuelCostPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Aircraft Type</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Boeing 787" {...field} />
-                      </FormControl>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select aircraft" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Boeing 787-9">Boeing 787-9</SelectItem>
+                          <SelectItem value="Boeing 787-8">Boeing 787-8</SelectItem>
+                          <SelectItem value="Airbus A350-900">Airbus A350-900</SelectItem>
+                          <SelectItem value="Boeing 777-300ER">Boeing 777-300ER</SelectItem>
+                          <SelectItem value="Boeing 737-800">Boeing 737-800</SelectItem>
+                          <SelectItem value="Airbus A320neo">Airbus A320neo</SelectItem>
+                          <SelectItem value="Bombardier CRJ900">Bombardier CRJ900</SelectItem>
+                          <SelectItem value="ATR 72-600">ATR 72-600</SelectItem>
+                          <SelectItem value="Embraer E190">Embraer E190</SelectItem>
+                          <SelectItem value="Boeing 737 MAX 8">Boeing 737 MAX 8</SelectItem>
+                          <SelectItem value="Airbus A220-300">Airbus A220-300</SelectItem>
+                          <SelectItem value="De Havilland Dash 8">De Havilland Dash 8</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}

@@ -57,8 +57,8 @@ export default function MaintenancePage() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      aircraftType: 'Boeing 787',
-      airlinePreferences: 'Prioritize component lifecycle checks and minimize ground time. Focus on engine and avionics systems.',
+      aircraftType: 'Boeing 787-9',
+      airlinePreferences: 'Uganda Airlines maintenance standards: Prioritize component lifecycle checks and minimize ground time. Focus on engine and avionics systems for East African operations.',
     },
   });
 
@@ -108,10 +108,18 @@ export default function MaintenancePage() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Boeing 787">Boeing 787</SelectItem>
-                        <SelectItem value="Airbus A350">Airbus A350</SelectItem>
-                        <SelectItem value="Boeing 737">Boeing 737</SelectItem>
-                        <SelectItem value="Airbus A320">Airbus A320</SelectItem>
+                        <SelectItem value="Boeing 787-9">Boeing 787-9</SelectItem>
+                        <SelectItem value="Boeing 787-8">Boeing 787-8</SelectItem>
+                        <SelectItem value="Airbus A350-900">Airbus A350-900</SelectItem>
+                        <SelectItem value="Boeing 777-300ER">Boeing 777-300ER</SelectItem>
+                        <SelectItem value="Boeing 737-800">Boeing 737-800</SelectItem>
+                        <SelectItem value="Airbus A320neo">Airbus A320neo</SelectItem>
+                        <SelectItem value="Bombardier CRJ900">Bombardier CRJ900</SelectItem>
+                        <SelectItem value="ATR 72-600">ATR 72-600</SelectItem>
+                        <SelectItem value="Embraer E190">Embraer E190</SelectItem>
+                        <SelectItem value="Boeing 737 MAX 8">Boeing 737 MAX 8</SelectItem>
+                        <SelectItem value="Airbus A220-300">Airbus A220-300</SelectItem>
+                        <SelectItem value="De Havilland Dash 8">De Havilland Dash 8</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
