@@ -317,7 +317,7 @@ const result = await calculateFuelCost({
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/new-feature`
-3. Commit changes: `git commit -am 'Add new feature'`
+3. Commit changes: `git commit -m 'Add new feature'`
 4. Push to branch: `git push origin feature/new-feature`
 5. Submit a pull request
 
@@ -329,7 +329,7 @@ This project is proprietary software. All rights reserved.
 
 For support and questions:
 
-- 📧 Email: support@aerosight.app
+- 📧 Email: kamwangaraheem2050@gmail.com
 - 📖 Documentation: [docs.aerosight.app](https://docs.aerosight.app)
 - 🐛 Issues: [GitHub Issues](https://github.com/RockieRaheem/AeroSight/issues)
 
