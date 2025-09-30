@@ -1,8 +1,12 @@
 # AeroSight ✈️
-<!-- Comprehensive aviation operations platform with AI-powered features -->
-**Intelligent Aviation Operations Dashboard for Entebbe Airport**
 
-AeroSight is a modern, AI-powered aviation management platform designed to optimize flight operations, predict delays, manage fuel costs, and streamline maintenance scheduling for airlines and airport authorities.
+<!-- Comprehensive aviation operations platform with AI-powered features -->
+
+**Next-Generation Aviation Operations Dashboard for East African Airways**
+
+AeroSight is a cutting-edge, AI-powered aviation management platform specifically designed for East African aviation operations. Built with modern web technologies and Google's Gemini AI, it provides comprehensive solutions for flight operations optimization, predictive maintenance, fuel cost management, and delay prediction for airlines like Uganda Airlines, Ethiopian Airlines, and Kenya Airways.
+
+> **🎯 Mission**: Revolutionizing aviation operations across East Africa with intelligent data-driven insights and automated decision-making tools.
 
 ![AeroSight Dashboard](https://images.unsplash.com/photo-1529322365446-6efd62aed02e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhaXJwbGFuZSUyMHdpbmd8ZW58MHx8fHwxNzU5MDc1NTYxfDA&ixlib=rb-4.1.0&q=80&w=1080)
 
@@ -14,7 +18,14 @@ AeroSight is a modern, AI-powered aviation management platform designed to optim
 - Display predictions with percentage probability and estimated delay time
 - AI-powered analysis using Google Gemini for accurate forecasting
 
-### 📊 **Data Visualization**
+### � **Regional Aviation Focus**
+
+- **Primary Focus**: Uganda Airlines and Entebbe International Airport (EBB)
+- **Regional Coverage**: Ethiopian Airlines, Kenya Airways, RwandAir, and other East African carriers
+- **Aircraft Types**: Boeing 787, Airbus A350, Bombardier CRJ900, ATR 72, and regional fleet
+- **Route Network**: EBB-ADD, NBO-KGL, DAR-JRO, and major African connections
+
+### �📊 **Data Visualization**
 
 - Interactive charts and graphs displaying weather, flight data, and traffic patterns
 - Real-time dashboard with flight activity and delay trends
