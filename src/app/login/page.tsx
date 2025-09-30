@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,7 +16,8 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AeroSightLogo } from "@/components/aerosight-logo";
-import { User, Lock, Plane, Eye, EyeOff, Mail } from "lucide-react";
+import { User, Lock, Plane, Eye, EyeOff, Mail, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -31,14 +32,91 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export default function LoginPage() {
+  const { user, loading, signIn, signUp, signInWithGoogle } = useAuth();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Form states
+  const [signInData, setSignInData] = useState({
+    email: "",
+    password: ""
+  });
+  
+  const [signUpData, setSignUpData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
 
-  const handleLogin = (e: React.FormEvent) => {
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && !loading) {
+      router.push('/dashboard');
+    }
+  }, [user, loading, router]);
+
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/dashboard");
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    try {
+      await signIn(signInData.email, signInData.password);
+    } catch (error) {
+      // Error handling is done in the auth context
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+    
+    if (signUpData.password !== signUpData.confirmPassword) {
+      // You could show an error toast here
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      await signUp(signUpData.email, signUpData.password, signUpData.fullName);
+    } catch (error) {
+      // Error handling is done in the auth context
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      // Error handling is done in the auth context
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Show loading spinner while checking auth state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
+  // Don't render login form if user is already authenticated
+  if (user) {
+    return null;
+  }
 
   const loginImage = PlaceHolderImages.find(p => p.id === 'login-background');
 
@@ -72,7 +150,7 @@ export default function LoginPage() {
               <TabsTrigger value="sign-up">Sign Up</TabsTrigger>
             </TabsList>
             <TabsContent value="sign-in">
-              <form onSubmit={handleLogin}>
+              <form onSubmit={handleSignIn}>
                 <div className="grid gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="email-signin">Email</Label>
@@ -82,8 +160,10 @@ export default function LoginPage() {
                           id="email-signin"
                           type="email"
                           placeholder="manager@airline.com"
-                          defaultValue="manager@airline.com"
+                          value={signInData.email}
+                          onChange={(e) => setSignInData({...signInData, email: e.target.value})}
                           required
+                          disabled={isSubmitting}
                           className="pl-10 bg-background/50 border-white/20"
                         />
                     </div>
@@ -103,37 +183,70 @@ export default function LoginPage() {
                         <Input 
                             id="password-signin" 
                             type={showPassword ? "text" : "password"} 
-                            defaultValue="password" 
+                            value={signInData.password}
+                            onChange={(e) => setSignInData({...signInData, password: e.target.value})}
                             required 
+                            disabled={isSubmitting}
                             className="pl-10 pr-10 bg-background/50 border-white/20" 
                         />
-                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                        <button 
+                          type="button" 
+                          onClick={() => setShowPassword(!showPassword)} 
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                          disabled={isSubmitting}
+                        >
                             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
                     </div>
                   </div>
-                   <Button type="submit" className="w-full text-lg py-6 mt-2">
-                    Sign In
-                    <Plane className="ml-2 h-5 w-5" />
+                   <Button type="submit" className="w-full text-lg py-6 mt-2" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Signing In...
+                      </>
+                    ) : (
+                      <>
+                        Sign In
+                        <Plane className="ml-2 h-5 w-5" />
+                      </>
+                    )}
                   </Button>
                 </div>
               </form>
             </TabsContent>
             <TabsContent value="sign-up">
-               <form onSubmit={handleLogin}>
+               <form onSubmit={handleSignUp}>
                 <div className="grid gap-4">
                    <div className="grid gap-2">
                     <Label htmlFor="fullname-signup">Full Name</Label>
                      <div className="relative">
                         <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input id="fullname-signup" placeholder="Jane Doe" required className="pl-10 bg-background/50 border-white/20" />
+                        <Input 
+                          id="fullname-signup" 
+                          placeholder="Jane Doe" 
+                          value={signUpData.fullName}
+                          onChange={(e) => setSignUpData({...signUpData, fullName: e.target.value})}
+                          required 
+                          disabled={isSubmitting}
+                          className="pl-10 bg-background/50 border-white/20" 
+                        />
                     </div>
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email-signup">Email</Label>
                     <div className="relative">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input id="email-signup" type="email" placeholder="manager@airline.com" required className="pl-10 bg-background/50 border-white/20" />
+                        <Input 
+                          id="email-signup" 
+                          type="email" 
+                          placeholder="manager@airline.com" 
+                          value={signUpData.email}
+                          onChange={(e) => setSignUpData({...signUpData, email: e.target.value})}
+                          required 
+                          disabled={isSubmitting}
+                          className="pl-10 bg-background/50 border-white/20" 
+                        />
                     </div>
                   </div>
                   <div className="grid gap-2">
@@ -143,10 +256,18 @@ export default function LoginPage() {
                         <Input 
                             id="password-signup" 
                             type={showPassword ? "text" : "password"} 
+                            value={signUpData.password}
+                            onChange={(e) => setSignUpData({...signUpData, password: e.target.value})}
                             required 
+                            disabled={isSubmitting}
                             className="pl-10 pr-10 bg-background/50 border-white/20" 
                         />
-                         <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                         <button 
+                           type="button" 
+                           onClick={() => setShowPassword(!showPassword)} 
+                           className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                           disabled={isSubmitting}
+                         >
                             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
                     </div>
@@ -158,16 +279,34 @@ export default function LoginPage() {
                         <Input 
                             id="confirm-password-signup" 
                             type={showConfirmPassword ? "text" : "password"} 
+                            value={signUpData.confirmPassword}
+                            onChange={(e) => setSignUpData({...signUpData, confirmPassword: e.target.value})}
                             required 
+                            disabled={isSubmitting}
                             className="pl-10 pr-10 bg-background/50 border-white/20" 
                         />
-                         <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                         <button 
+                           type="button" 
+                           onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
+                           className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                           disabled={isSubmitting}
+                         >
                             {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
                     </div>
                   </div>
-                  <Button type="submit" className="w-full text-lg py-6 mt-2">
-                    Create Account
+                  <Button type="submit" className="w-full text-lg py-6 mt-2" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Creating Account...
+                      </>
+                    ) : (
+                      <>
+                        Create Account
+                        <Plane className="ml-2 h-5 w-5" />
+                      </>
+                    )}
                   </Button>
                 </div>
               </form>
