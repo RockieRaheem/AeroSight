@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
-import Link from 'next/link';
-import { ProtectedRoute } from '@/components/protected-route';
+import type { ReactNode } from "react";
+import Link from "next/link";
+import { ProtectedRoute } from "@/components/protected-route";
 import {
   Bell,
   Home,
@@ -13,7 +13,7 @@ import {
   Camera,
   User,
   Settings,
-} from 'lucide-react';
+} from "lucide-react";
 
 import {
   SidebarProvider,
@@ -25,8 +25,8 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarInset,
-} from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,18 +34,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { AeroSightLogo } from '@/components/aerosight-logo';
-import { DashboardHeader } from '@/components/dashboard/dashboard-header';
-import { ThemeToggle } from '@/components/dashboard/theme-toggle';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { AeroSightLogo } from "@/components/aerosight-logo";
+import { DashboardHeader } from "@/components/dashboard/dashboard-header";
+import { ThemeToggle } from "@/components/dashboard/theme-toggle";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const userAvatar = PlaceHolderImages.find((p) => p.id === 'user-avatar');
+  const userAvatar = PlaceHolderImages.find((p) => p.id === "user-avatar");
 
   return (
-    <SidebarProvider>
+    <ProtectedRoute>
+      <SidebarProvider>
       <div className="grid grid-cols-[auto_1fr] min-h-screen w-full">
         <Sidebar>
           <SidebarHeader>
@@ -74,7 +75,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-                <SidebarMenuItem>
+              <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <Link href="/dashboard/damage-assessor">
                     <Camera />
@@ -98,7 +99,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-               <SidebarMenuItem>
+              <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <Link href="/dashboard/flight-debrief">
                     <Video />
@@ -111,19 +112,33 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <SidebarFooter>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="w-full justify-start gap-2 px-2 h-auto text-left text-sidebar-foreground hover:bg-muted/80 hover:text-foreground">
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start gap-2 px-2 h-auto text-left text-sidebar-foreground hover:bg-muted/80 hover:text-foreground"
+                >
                   <Avatar className="h-8 w-8">
-                    {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
+                    {userAvatar && (
+                      <AvatarImage
+                        src={userAvatar.imageUrl}
+                        alt="User Avatar"
+                      />
+                    )}
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 truncate">
                     <p className="font-semibold text-sm">Jane Doe</p>
-                    <p className="text-xs text-muted-foreground">manager@airline.com</p>
+                    <p className="text-xs text-muted-foreground">
+                      manager@airline.com
+                    </p>
                   </div>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 mb-2" side="top" align="start">
+              <DropdownMenuContent
+                className="w-56 mb-2"
+                side="top"
+                align="start"
+              >
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
@@ -140,20 +155,21 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <Link href="/login">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Log out</span>
-                    </Link>
+                  <Link href="/login">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarFooter>
         </Sidebar>
         <div className="flex flex-col">
-            <DashboardHeader />
-            <main className="flex-1 p-4 sm:p-6 bg-muted/30">{children}</main>
+          <DashboardHeader />
+          <main className="flex-1 p-4 sm:p-6 bg-muted/30">{children}</main>
         </div>
       </div>
     </SidebarProvider>
+    </ProtectedRoute>
   );
 }
