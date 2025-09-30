@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import { ProtectedRoute } from '@/components/protected-route';
 import {
   Bell,
   Home,
