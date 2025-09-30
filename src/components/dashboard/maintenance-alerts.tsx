@@ -69,9 +69,7 @@ export function MaintenanceAlerts() {
               <p className="text-sm font-medium leading-none">
                 {alert.flight} - {alert.airline}
               </p>
-              <p className="text-xs text-muted-foreground">
-                {alert.model}
-              </p>
+              <p className="text-xs text-muted-foreground">{alert.model}</p>
               <p className="text-sm text-muted-foreground">{alert.reason}</p>
             </div>
           </div>
