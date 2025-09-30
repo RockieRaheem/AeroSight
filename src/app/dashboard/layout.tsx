@@ -1,7 +1,10 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { ProtectedRoute } from '@/components/protected-route';
 import { LogoutButton } from '@/components/logout-button';
+import { useAuth } from '@/lib/auth';
 import {
   Bell,
   Home,
@@ -42,7 +45,23 @@ import { AeroSightLogo } from '@/components/aerosight-logo';
 import { DashboardHeader } from '@/components/dashboard/dashboard-header';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
   const userAvatar = PlaceHolderImages.find((p) => p.id === "user-avatar");
+  
+  // Get user display name and email from Firebase Auth
+  const displayName = user?.displayName || user?.email?.split('@')[0] || 'User';
+  const userEmail = user?.email || '';
+  const photoURL = user?.photoURL;
+  
+  // Generate initials from display name
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   return (
     <ProtectedRoute>
@@ -117,18 +136,23 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     className="w-full justify-start gap-2 px-2 h-auto text-left text-sidebar-foreground hover:bg-muted/80 hover:text-foreground"
                   >
                     <Avatar className="h-8 w-8">
-                      {userAvatar && (
+                      {photoURL ? (
+                        <AvatarImage
+                          src={photoURL}
+                          alt={displayName}
+                        />
+                      ) : userAvatar ? (
                         <AvatarImage
                           src={userAvatar.imageUrl}
                           alt="User Avatar"
                         />
-                      )}
-                      <AvatarFallback>JD</AvatarFallback>
+                      ) : null}
+                      <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 truncate">
-                      <p className="font-semibold text-sm">Jane Doe</p>
+                      <p className="font-semibold text-sm">{displayName}</p>
                       <p className="text-xs text-muted-foreground">
-                        manager@airline.com
+                        {userEmail}
                       </p>
                     </div>
                     <ChevronDown className="h-4 w-4" />

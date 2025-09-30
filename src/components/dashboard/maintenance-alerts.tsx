@@ -12,21 +12,38 @@ import Link from 'next/link';
 const alerts = [
   {
     id: 1,
-    flight: 'UG522',
-    model: 'Boeing 737',
+    flight: 'UR522', // Uganda Airlines
+    airline: 'Uganda Airlines',
+    model: 'Bombardier CRJ900',
     reason: 'Engine pressure anomaly detected',
   },
   {
     id: 2,
-    flight: 'KQ414',
-    model: 'Airbus A320',
+    flight: 'ET714', // Ethiopian Airlines
+    airline: 'Ethiopian Airlines',
+    model: 'Boeing 787',
     reason: 'Landing gear sensor fault',
   },
   {
     id: 3,
-    flight: 'ET338',
-    model: 'Boeing 787',
+    flight: 'KQ414', // Kenya Airways
+    airline: 'Kenya Airways',
+    model: 'Boeing 737',
     reason: 'Hydraulic fluid levels low',
+  },
+  {
+    id: 4,
+    flight: 'WB205', // RwandAir
+    airline: 'RwandAir',
+    model: 'Airbus A330',
+    reason: 'Avionics system update required',
+  },
+  {
+    id: 5,
+    flight: 'EK728', // Emirates
+    airline: 'Emirates',
+    model: 'Boeing 777',
+    reason: 'Tire pressure warning',
   },
 ];
 
