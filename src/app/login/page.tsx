@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AeroSightLogo } from "@/components/aerosight-logo";
+import { User, Lock, Plane } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,68 +28,69 @@ export default function LoginPage() {
   const loginImage = PlaceHolderImages.find(p => p.id === 'login-background');
 
   return (
-    <div className="w-full lg:grid lg:min-h-[100vh] lg:grid-cols-2 xl:min-h-[100vh]">
-      <div className="flex items-center justify-center py-12">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <div className="grid gap-2 text-center">
-            <AeroSightLogo className="w-16 h-16 mx-auto" />
-            <h1 className="text-3xl font-bold">Welcome to AeroSight</h1>
-            <p className="text-balance text-muted-foreground">
-              Enter your credentials to access your dashboard
-            </p>
-          </div>
-          <form onSubmit={handleLogin}>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl">Login</CardTitle>
-                <CardDescription>
-                  This is a mock login. Click Sign in to continue.
+    <div className="relative min-h-screen w-full flex items-center justify-center p-4">
+      {loginImage && (
+        <Image
+          src={loginImage.imageUrl}
+          alt={loginImage.description}
+          layout="fill"
+          objectFit="cover"
+          data-ai-hint={loginImage.imageHint}
+          className="absolute inset-0 -z-10 w-full h-full object-cover brightness-[0.4]"
+        />
+      )}
+      
+      <div className="w-full max-w-md">
+        <form onSubmit={handleLogin}>
+          <Card className="bg-card/80 backdrop-blur-sm border-white/20">
+             <CardHeader className="text-center">
+                <div className="flex justify-center mb-4">
+                    <AeroSightLogo className="w-20 h-20 text-primary" />
+                </div>
+                <CardTitle className="text-3xl font-bold text-card-foreground">Welcome to AeroSight</CardTitle>
+                <CardDescription className="text-card-foreground/80">
+                  Enter your credentials to access the flight deck.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="manager@airline.com"
-                    defaultValue="manager@airline.com"
-                    required
-                  />
+            <CardContent className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="manager@airline.com"
+                      defaultValue="manager@airline.com"
+                      required
+                      className="pl-10 bg-background/50 border-white/20"
+                    />
                 </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">
+              </div>
+              <div className="grid gap-2">
+                 <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
                     <a
                       href="#"
-                      className="ml-auto inline-block text-sm underline"
+                      className="ml-auto inline-block text-sm text-primary/80 hover:text-primary underline"
                     >
                       Forgot your password?
                     </a>
                   </div>
-                  <Input id="password" type="password" defaultValue="password" required />
+                 <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="password" type="password" defaultValue="password" required className="pl-10 bg-background/50 border-white/20" />
                 </div>
-              </CardContent>
-              <CardFooter>
-                <Button type="submit" className="w-full">
-                  Sign in
-                </Button>
-              </CardFooter>
-            </Card>
-          </form>
-        </div>
-      </div>
-      <div className="hidden bg-muted lg:block">
-        {loginImage && (
-            <Image
-              src={loginImage.imageUrl}
-              alt={loginImage.description}
-              width="1200"
-              height="800"
-              data-ai-hint={loginImage.imageHint}
-              className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
-        )}
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button type="submit" className="w-full text-lg py-6">
+                Sign In
+                <Plane className="ml-2 h-5 w-5" />
+              </Button>
+            </CardFooter>
+          </Card>
+        </form>
       </div>
     </div>
   );
